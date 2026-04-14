@@ -1,4 +1,4 @@
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 150
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 20
 
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
@@ -8,15 +8,13 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
-#define MOUSE 1
-#define MARK 2
-#define CURSOR 3
-#define FUNCTION 4
-#define SCROLL 5
-#define WIRELESS 6
+#define DEFAULT 0
+#define RAISE 1
+#define LOWER 2
+#define MOUSE_FUNCTION 3
+#define MEDIA 4
 
 //mouse cursol
-
 &mmv {
     delay-ms = <20>;
     trigger-period-ms = <5>;
@@ -25,7 +23,6 @@
 };
 
 //mouse scroll
-
 &msc {
     delay-ms = <3>;
     trigger-period-ms = <3>;
@@ -45,68 +42,188 @@
     };
 };
 
-&msc_input_listener {
-    speed_up {
-        layers = <FUNCTION>;
-        input-processors = <&zip_wheel_scaler 3 1>; //スクロールを3倍速にする
-    };
-};
+/* &msc_input_listener { */
+/*     speed_up { */
+/*         layers = <MEDIA>; */
+/*         input-processors = <&zip_wheel_scaler 3 1>; //スクロールを3倍速にする */
+/*     }; */
+/* }; */
 
-&trackball_listener {
-    scroller {
-        layers = <SCROLL>;
-        input-processors =
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
-            //スクロール方向を逆転
-            <&zip_xy_to_scroll_mapper>;
-    };
-};
+// &trackball_listener {
+//     scroller {
+//         layers = <SCROLL>;
+//         input-processors =
+//             <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,
+//             //スクロール方向を逆転
+//             <&zip_xy_to_scroll_mapper>;
+//     };
+// };
 
 / {
+    // key positions:
+    //
+    // [32]: エンコーダ
+    // [空白]: track-ball
+    //
+    // [ 0][ 1][ 2][ 3][ 4]     |     [ 5][ 6][ 7][ 8][ 9]
+    // [10][11][12][13][14]     |     [15][16][17][18][19]
+    // [20][21][22][23][24]     |     [25][26][27][28][29]
+    // [30][31][32][33][34][35] | [36][37]    [38][39][40]
     combos {
         compatible = "zmk,combos";
 
-        ZenkakuHankaku {
-            bindings = <&kp GRAVE>;
-            key-positions = <11 12>;
+        combo_CapsLock {
+            bindings = <&kp CAPSLOCK>;
+            key-positions = <13 16>;
+            timeout-ms = <50>;
         };
 
-        DeleteKey {
+        combo_BackSpaceKey {
+            bindings = <&kp BSPC>;
+            key-positions = <8 9>;
+        };
+
+        combo_DeleteKey {
             bindings = <&kp DEL>;
             key-positions = <7 8>;
         };
 
-        InsertKey {
-            bindings = <&kp INS>;
-            key-positions = <6 7>;
+        /* combo_CenterClick { */
+        /*     bindings = <&mkp MB3>; */
+        /*     key-positions = <17 16>; */
+        /* }; */
+        /**/
+        /* combo_RightClick { */
+        /*     bindings = <&mkp MB2>; */
+        /*     key-positions = <18 17>; */
+        /* }; */
+        /**/
+        /* combo_PrevClick { */
+        /*     bindings = <&mkp MB4>; */
+        /*     key-positions = <27 28>; */
+        /* }; */
+        /**/
+        /* combo_ClickNext { */
+        /*     bindings = <&mkp MB5>; */
+        /*     key-positions = <26 27>; */
+        /* }; */
+
+        combo_f1 {
+            bindings = <&kp F1>;
+            key-positions = <0 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
         };
 
-        CenterClick {
-            bindings = <&mkp MB3>;
-            key-positions = <17 16>;
+        combo_f2 {
+            bindings = <&kp F2>;
+            key-positions = <1 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
         };
 
-        RightClick {
-            bindings = <&mkp MB2>;
-            key-positions = <18 17>;
+        combo_f3 {
+            bindings = <&kp F3>;
+            key-positions = <2 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
         };
 
-        PrevClick {
-            bindings = <&mkp MB4>;
-            key-positions = <27 28>;
+        combo_f4 {
+            bindings = <&kp F4>;
+            key-positions = <3 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
         };
 
-        ClickNext {
-            bindings = <&mkp MB5>;
-            key-positions = <26 27>;
+        combo_f5 {
+            bindings = <&kp F5>;
+            key-positions = <4 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
+        };
+
+        combo_f6 {
+            bindings = <&kp F6>;
+            key-positions = <5 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
+        };
+
+        combo_f7 {
+            bindings = <&kp F7>;
+            key-positions = <6 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
+        };
+
+        combo_f8 {
+            bindings = <&kp F8>;
+            key-positions = <7 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
+        };
+
+        combo_f9 {
+            bindings = <&kp F9>;
+            key-positions = <8 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
+        };
+
+        combo_f10 {
+            bindings = <&kp F10>;
+            key-positions = <9 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
+        };
+
+        combo_f11 {
+            bindings = <&kp F11>;
+            key-positions = <10 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
+        };
+
+        combo_f12 {
+            bindings = <&kp F12>;
+            key-positions = <11 40>;
+            layers = <RAISE>;
+            timeout-ms = <50>;
+        };
+
+        bt_clear {
+            bindings = <&bt BT_CLR>;
+            key-positions = <30 31>;
+            layers = <MEDIA>;
         };
     };
 
     behaviors {
-        re_kp: sensor_rotate_kp {
-            compatible = "zmk,behavior-sensor-rotate-var";
-            #sensor-binding-cells = <2>;
+        hml: home_row_mod_left {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
             bindings = <&kp>, <&kp>;
+            /* hold-trigger-key-positions = <16 17 18 19>; */
+            hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 36 37 38 39 40>;
+            hold-trigger-on-release;
+        };
+
+        hmr: home_row_mod_right {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+            /* hold-trigger-key-positions = <10 11 12 13>; */
+            hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32 33 34 35>;
+            hold-trigger-on-release;
         };
 
         mouse_scrl: mouse_wheel_scrl {
@@ -118,92 +235,77 @@
         };
     };
 
+// key positions:
+//
+// [32]: エンコーダ
+// [空白]: track-ball
+//
+// [ 0][ 1][ 2][ 3][ 4]     |     [ 5][ 6][ 7][ 8][ 9]
+// [10][11][12][13][14]     |     [15][16][17][18][19]
+// [20][21][22][23][24]     |     [25][26][27][28][29]
+// [30][31][32][33][34][35] | [36][37]    [38][39][40]
+
     keymap {
         compatible = "zmk,keymap";
 
-        default_layer {
+        // 0
+        DEFAULT {
             bindings = <
-&kp Q          &kp W         &kp E               &kp R    &kp T                                      &kp Y        &kp U  &kp I                &kp O          &kp P
-&kp A          &kp S         &kp D               &kp F    &kp G                                      &kp H        &kp J  &kp K                &kp L          &lt 5 MINUS
-&kp Z          &kp X         &kp C               &kp V    &kp B                                      &kp N        &kp M  &kp COMMA            &kp DOT        &mt RIGHT_SHIFT BACKSPACE
-&mt LCTRL ESC  &kp LEFT_WIN  &mt LEFT_ALT GRAVE  &kp INS  &lt 5 ENTER  &lt 2 TAB    &lt 2 BACKSPACE  &lt 4 SPACE         &lt 6 RIGHT_BRACKET  &kp BACKSLASH  &mt RIGHT_SHIFT SLASH
+&kp Q         &kp W         &kp E          &kp R          &kp T                                           &kp Y       &kp U         &kp I         &kp O         &kp P
+&hml LGUI A   &hml LALT S   &hml LSHFT D   &hml LCTRL F   &kp G                                           &kp H       &hmr RCTRL J  &hmr RSHFT K  &hmr RALT L   &hmr RGUI SEMI
+&kp Z         &kp X         &kp C          &kp V          &kp B                                           &kp N       &kp M         &kp COMMA     &kp DOT       &kp SLASH
+&kp GRAVE     &kp ESC       &none          &kp TAB        &lt 2 LGUI  &mt LSHFT SPACE   &mt RSHFT ENTER   &lt 1 RGUI                &kp BSPC      &mo 4         &lt 3 SQT
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
         //1
-
-        MOUSE {
+        RAISE {
             bindings = <
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans    &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &mkp MB1  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans                    &trans  &trans    &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans            &trans  &trans  &trans
-            >;
-        };
-
-        //2
-
-        MARK {
-            bindings = <
-&kp EXCLAMATION             &kp AT           &kp HASH         &kp DOLLAR     &kp PERCENT                      &kp CARET     &kp AMPERSAND  &kp ASTERISK           &kp LEFT_PARENTHESIS  &kp LBKT
-&kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp SEMICOLON  &kp SEMICOLON                    &kp C_MUTE    &kp LS(LBKT)   &kp RIGHT_BRACKET      &kp BACKSLASH         &kp EQUAL
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp APOS       &kp SQT                          &kp KP_EQUAL  &kp INT3       &kp LS(RIGHT_BRACKET)  &kp LS(BACKSLASH)     &kp LS(INT1)
-&trans                      &trans           &trans           &trans         &trans         &trans    &trans  &trans                       &kp ASTERISK           &kp LEFT_PARENTHESIS  &kp LS(QUESTION)
-            >;
-
-            sensor-bindings = <&re_kp C_VOLUME_DOWN C_VOLUME_UP>;
-        };
-
-        //3
-
-        CURSOR {
-            bindings = <
-&trans    &kp LC(LG(LEFT_ARROW))  &kp UP_ARROW  &kp LC(LG(RIGHT_ARROW))  &trans                       &kp KP_MULTIPLY  &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp KP_PLUS
-&trans    &kp LEFT_ARROW          &kp DOWN      &kp RIGHT_ARROW          &trans                       &kp KP_SLASH     &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6  &kp KP_MINUS
-&kp HOME  &kp PAGE_DOWN           &kp END       &kp PAGE_UP              &trans                       &kp UNDER        &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp ENTER
-&trans    &trans                  &trans        &trans                   &trans  &trans    &kp ENTER  &kp NUMBER_0                   &kp DOT       &kp ENTER     &kp QUESTION
-            >;
-        };
-
-        //4
-
-        FUNCTION {
-            bindings = <
-&kp F1  &kp F2  &kp F3  &kp F4   &kp F5                     &trans      &trans  &kp LA(PRINTSCREEN)  &trans  &kp LC(LA(DELETE))
-&kp F6  &kp F7  &kp F8  &kp F9   &kp F10                    &trans      &trans  &kp LS(LG(S))        &trans  &kp LC(LS(ESCAPE))
-&trans  &trans  &trans  &kp F11  &kp F12                    &kp C_MUTE  &trans  &trans               &trans  &kp LC(LA(INS))
-&trans  &trans  &trans  &trans   &trans   &trans    &trans  &trans              &trans               &trans  &trans
+&kp N1      &kp N2      &kp N3      &kp N4      &kp N5                        &kp N6    &kp N7      &kp N8      &kp N9      &kp N0
+&kp LGUI    &kp LALT    &kp LSHFT   &kp LCTRL   &trans                        &trans    &kp RCTRL   &kp RSHFT   &kp RALT    &mt RGUI SEMI
+&trans      &trans      &trans      &trans      &trans                        &trans    &trans      &trans      &trans      &trans
+&trans      &trans      &trans      &trans      &trans    &trans    &trans    &trans                &trans      &trans      &kp GLOBE
             >;
 
             sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        //5
-
-        SCROLL {
+        //2
+        LOWER {
             bindings = <
-&trans    &kp LC(LG(LEFT_ARROW))  &kp UP_ARROW  &kp LC(LG(RIGHT_ARROW))  &trans                    &kp KP_MULTIPLY  &kp NUMBER_7  &kp NUMBER_8  &kp NUMBER_9  &kp KP_PLUS
-&trans    &kp LEFT_ARROW          &kp DOWN      &kp RIGHT_ARROW          &trans                    &kp KP_SLASH     &kp NUMBER_4  &kp NUMBER_5  &kp NUMBER_6  &kp KP_MINUS
-&kp HOME  &kp PAGE_DOWN           &kp END       &kp PAGE_UP              &trans                    &kp UNDER        &kp NUMBER_1  &kp NUMBER_2  &kp NUMBER_3  &kp ENTER
-&trans    &trans                  &trans        &trans                   &trans  &trans    &trans  &kp NUMBER_0                   &kp NUMBER_0  &kp DOT       &kp QUESTION
+&trans      &trans      &trans      &trans      &trans                        &trans    &trans      &kp MINUS   &kp EQUAL    &kp BACKSLASH
+&kp LGUI    &kp LALT    &kp LSHFT   &kp LCTRL   &trans                        &trans    &kp RCTRL   &kp LBKT    &kp RBKT     &mt RGUI SEMI
+&trans      &trans      &trans      &trans      &trans                        &trans    &trans      &trans      &trans       &trans
+&trans      &trans      &trans      &trans      &trans    &trans    &trans    &trans                &trans      &trans       &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp DOWN_ARROW UP_ARROW>;
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
 
-        //6
-
-        WIRELESS {
+        //3
+        MOUSE_FUNCTION {
             bindings = <
-&bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                         &bt BT_SEL 0    &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4
-&trans        &trans        &trans        &trans        &trans                               &trans          &trans        &trans        &trans        &trans
-&trans        &trans        &trans        &trans        &trans                               &trans          &trans        &trans        &trans        &bt BT_CLR
-&trans        &trans        &trans        &trans        &trans        &trans    &bootloader  &studio_unlock                &trans        &trans        &bt BT_CLR_ALL
+&kp F1        &kp F2        &kp F3        &kp F4          &kp F5                      &kp F6        &kp F7      &kp F8      &kp F9            &kp F10
+&mt LGUI F11  &mt LALT F12  &kp LSHFT     &kp LCTRL       &trans                      &kp LEFT      &kp DOWN    &kp UP      &kp RIGHT         &mt RGUI SEMI
+&msc SCRL_UP  &mkp MB2      &mkp MB1      &msc SCRL_DOWN  &trans                      &msc SCRL_UP  &mkp MB1    &mkp MB2    &msc SCRL_DOWN    &trans
+&trans        &trans        &trans        &trans          &trans   &trans  &mkp MB5   &mkp MB4                  &trans      &trans            &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp RIGHT_ARROW LEFT_ARROW>;
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
+        };
+
+        //4
+        MEDIA {
+            bindings = <
+&bt BT_SEL 0      &bt BT_SEL 1            &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                    &trans  &trans  &trans  &trans  &trans
+&kp C_VOL_DN      &kp C_VOL_UP            &kp C_MUTE    &trans        &trans                          &trans  &trans  &trans  &trans  &trans
+&kp C_BRI_DEC     &kp C_BRIGHTNESS_INC    &trans        &trans        &trans                          &trans  &trans  &trans  &trans  &trans
+&trans            &trans                  &trans        &trans        &trans        &trans    &trans  &trans          &trans  &trans  &trans
+            >;
+
+            sensor-bindings = <&mouse_scrl SCRL_DOWN SCRL_UP>;
         };
     };
 };
