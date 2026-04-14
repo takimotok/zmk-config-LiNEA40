@@ -1,4 +1,4 @@
-#define ZMK_POINTING_DEFAULT_SCRL_VAL 150
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 20
 
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
@@ -42,12 +42,12 @@
     };
 };
 
-&msc_input_listener {
-    speed_up {
-        layers = <MEDIA>;
-        input-processors = <&zip_wheel_scaler 3 1>; //スクロールを3倍速にする
-    };
-};
+/* &msc_input_listener { */
+/*     speed_up { */
+/*         layers = <MEDIA>; */
+/*         input-processors = <&zip_wheel_scaler 3 1>; //スクロールを3倍速にする */
+/*     }; */
+/* }; */
 
 // &trackball_listener {
 //     scroller {
